@@ -63,9 +63,10 @@ class ModelServer:
             "--max-model-len", str(self.vcfg["max_model_len"]),
             "--gpu-memory-utilization", str(self.vcfg["gpu_memory_utilization"]),
             "--dtype", str(self.vcfg["dtype"]),
-            "--disable-log-requests",
         ]
         cmd += QUANT_ARGS[quant]
+        # guided_backend is opt-in: the flag was removed in vLLM 0.18 (xgrammar is the
+        # default). Leave config blank on >=0.18; set it only on older vLLM that needs it.
         backend = self.vcfg.get("guided_backend")
         if backend:
             cmd += ["--guided-decoding-backend", backend]

@@ -16,7 +16,7 @@ latency_probe_n: 10
 
 vllm:
   host: 127.0.0.1
-  port: 8000
+  port: 8765
   gpu_memory_utilization: 0.90
   max_model_len: 8192
   dtype: auto
@@ -25,7 +25,7 @@ vllm:
   gpu_free_target_mib: 2000
   extra_serve_args: []
   guided_mode: response_format
-  guided_backend: xgrammar
+  guided_backend:            # blank on vLLM>=0.18 (flag removed; xgrammar is default)
 
 paths:
   hf_home: hf_home

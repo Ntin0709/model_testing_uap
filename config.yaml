@@ -14,7 +14,7 @@ latency_probe_n: 50        # isolated sequential calls for clean p50/p95 latency
 # --- vLLM serving -----------------------------------------------------------
 vllm:
   host: 127.0.0.1
-  port: 8000
+  port: 8765
   gpu_memory_utilization: 0.90
   max_model_len: 8192
   dtype: auto                       # auto | float16 | bfloat16
@@ -26,7 +26,7 @@ vllm:
   #   response_format  -> OpenAI-style response_format={"type":"json_schema", strict:true}
   #   guided_json      -> vLLM extra_body={"guided_json": <schema>}
   guided_mode: response_format
-  guided_backend: xgrammar          # xgrammar | outlines | lm-format-enforcer (server default if unset)
+  guided_backend:            # blank on vLLM>=0.18 (flag removed; xgrammar is default)
 
 # --- Paths ------------------------------------------------------------------
 paths:
