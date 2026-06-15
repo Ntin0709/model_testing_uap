@@ -1,0 +1,19 @@
+# The harness records the live vllm version + GPU into every result, so re-scoring
+# stays faithful regardless of the exact build. vLLM pulls a matching torch for your CUDA.
+#
+# >= 0.8.5 is required to serve the 2026 families (Qwen3 / Gemma-3 / Phi-4-mini);
+# Qwen3 model cards recommend vllm>=0.8.5. Pin to your validated build for full
+# reproducibility once you've chosen one, e.g. `vllm==0.8.5`.
+vllm>=0.8.5
+openai>=1.40,<2
+huggingface_hub>=0.24
+bitsandbytes>=0.43            # for quant: bnb-4bit (inflight 4-bit). 8-bit uses Int8 checkpoints + quant: gptq
+optimum>=1.20                 # GPTQ/AWQ checkpoint support
+auto-gptq>=0.7; platform_machine == "x86_64"
+PyYAML>=6.0
+numpy>=1.26
+pandas>=2.0
+matplotlib>=3.8
+scikit-learn>=1.3
+jsonschema>=4.20
+tabulate>=0.9

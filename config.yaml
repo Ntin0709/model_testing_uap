@@ -1,0 +1,175 @@
+# ============================================================================
+# Policy-Faithfulness Evaluation Harness — central config
+# Edit this file to change models, paths, dataset mix, and scoring weights.
+# ============================================================================
+
+# --- Reproducibility (pinned; recorded into every result) -------------------
+seed: 42
+temperature: 0.0
+max_tokens: 512
+runs_per_model: 3          # repeat each model N times to measure variance
+concurrency: 32            # parallel in-flight requests to vLLM (continuous batching)
+latency_probe_n: 50        # isolated sequential calls for clean p50/p95 latency
+
+# --- vLLM serving -----------------------------------------------------------
+vllm:
+  host: 127.0.0.1
+  port: 8000
+  gpu_memory_utilization: 0.90
+  max_model_len: 8192
+  dtype: auto                       # auto | float16 | bfloat16
+  startup_timeout_s: 900            # max wait for /health after launch
+  shutdown_grace_s: 30              # SIGTERM grace before SIGKILL
+  gpu_free_target_mib: 2000         # consider GPU "freed" when used drops below this
+  extra_serve_args: []              # any extra `vllm serve` flags (list of strings)
+  # How the verdict schema is enforced on the server:
+  #   response_format  -> OpenAI-style response_format={"type":"json_schema", strict:true}
+  #   guided_json      -> vLLM extra_body={"guided_json": <schema>}
+  guided_mode: response_format
+  guided_backend: xgrammar          # xgrammar | outlines | lm-format-enforcer (server default if unset)
+
+# --- Paths ------------------------------------------------------------------
+paths:
+  hf_home: hf_home                        # model downloads land here, next to the script (not ~/.cache)
+  prompt_system: prompts/system_prompt.txt
+  prompt_user_template: prompts/user_template.txt
+  verdict_schema: schema/verdict_schema.json
+  seed_pairs: data/seed_pairs.jsonl       # small hand-written faithful seeds (demo source)
+  policy_corpus: data/policies_faithful.jsonl  # large generated English->correct-JSON corpus
+  eval_dataset: data/eval.jsonl           # the labeled eval set actually scored
+  raw_outputs_dir: outputs/raw            # raw model verdicts (re-scoreable)
+  results_dir: outputs/results            # CSVs + summary
+  plots_dir: outputs/plots                # per-model PNGs
+
+# --- Dataset synthesis ------------------------------------------------------
+# If you supply your own labeled eval.jsonl, set synthesize: false.
+dataset:
+  synthesize: true
+  source: corpus              # corpus (production scale) | seed_pairs (tiny demo)
+  language: hinglish         # hinglish (romanized Hindi+English) | english | mixed
+  target_size: 2000          # total eval examples (corpus auto-grows to cover this)
+  faithful_fraction: 0.40    # share of genuinely-faithful pairs (for false-reject rate)
+  include_subtle: true       # generate hard negatives (single-field micro-drifts)
+  corruptions:               # types to generate + measure detection per type
+    - wrong_amount
+    - dropped_category
+    - added_merchant
+    - dropped_merchant
+    - overpermissive_merchants   # widen allow-list to "any" — dangerous, over-permissive
+    - widened_time_window
+    - narrowed_time_window
+    - swapped_currency
+    - wrong_period
+    - combined                   # two distinct single-field drifts in one example
+
+# --- Confidence threshold sweep (production floor analysis) ------------------
+thresholds:
+  sweep_start: 0.50
+  sweep_end: 0.99
+  sweep_step: 0.01
+  production_floor: 0.80      # candidate floor highlighted in plots/tables
+  far_budget: 0.02           # max tolerable false-accept rate -> pick the confidence floor that meets it
+
+# --- Statistical rigor ------------------------------------------------------
+evaluation:
+  bootstrap_iters: 1000      # cluster-bootstrap resamples for 95% CIs (resample by example)
+  bootstrap_ci: 0.95
+  unusable_score: 0.5        # continuous unfaithfulness score for AUC when output is unusable/AMBIGUOUS
+  # Guided-decoding intervention: re-ask a subset WITHOUT the schema constraint and
+  # measure how often the free-form output fails the schema. That failure rate = how
+  # often guided decoding had to intervene to make the output usable.
+  measure_intervention: true
+  intervention_probe_n: 200  # examples to re-run free-form (per model/run) for the above
+  alpha: 0.05                # significance level for McNemar (Holm-corrected across models)
+  error_examples_per_model: 100   # cap rows in error-analysis CSVs (false-accepts first)
+  slices:                    # subgroup dimensions for disaggregated metrics
+    - lang
+    - equivalence_hard
+    - period
+    - currency
+    - n_categories
+    - merchants_type
+
+# --- Ranking weights (higher = more important). False-accept weighted heaviest.
+ranking_weights:
+  false_accept_rate: -3.0    # safety-critical: unfaithful JSON wrongly signed
+  false_reject_rate: -1.0    # annoyance: faithful policy wrongly rejected
+  f1: 1.0
+  schema_conformance: 0.5
+
+# ============================================================================
+# Candidate models. quant: none | bnb-4bit | awq | gptq
+#   none      : full precision (bf16/fp16)
+#   bnb-4bit  : on-the-fly bitsandbytes NF4 (4-bit), works on ANY HF checkpoint
+#   awq       : 4-bit, requires an AWQ checkpoint (*-AWQ)
+#   gptq      : INT4 or INT8 — bit-width read from the checkpoint, so use
+#               *-GPTQ-Int4 (4-bit) or *-GPTQ-Int8 (8-bit)
+#   (bnb-8bit is intentionally rejected: vLLM on-the-fly bnb is 4-bit only —
+#    use a *-GPTQ-Int8 checkpoint with quant: gptq for real 8-bit.)
+#
+# 4-bit AND 8-bit are both covered below: Qwen ships official AWQ (4-bit) and
+# GPTQ-Int8 (8-bit) checkpoints; other families get bnb-4bit for 4-bit, with an
+# 8-bit slot you can fill with a community *-GPTQ-Int8 checkpoint.
+#
+# This default list is the FULL requested candidate set and is LARGE. Validate
+# first with `python run.py --config config.smoke.yaml`, then run the sweep.
+# Disable rows you don't need. Gated repos (Llama, Gemma, Ministral) need
+# `huggingface-cli login` + license acceptance. 2026 families need vllm>=0.8.5.
+# ============================================================================
+models:
+  # ---- Qwen2.5: fp16 + 4-bit (AWQ) + 8-bit (GPTQ-Int8) --------------------
+  - { name: qwen2.5-1.5b,        hf_id: Qwen/Qwen2.5-1.5B-Instruct,            quant: none, enabled: true }
+  - { name: qwen2.5-1.5b-awq4,   hf_id: Qwen/Qwen2.5-1.5B-Instruct-AWQ,        quant: awq,  enabled: true }
+  - { name: qwen2.5-1.5b-int8,   hf_id: Qwen/Qwen2.5-1.5B-Instruct-GPTQ-Int8,  quant: gptq, enabled: true }
+  - { name: qwen2.5-3b,          hf_id: Qwen/Qwen2.5-3B-Instruct,              quant: none, enabled: true }
+  - { name: qwen2.5-3b-awq4,     hf_id: Qwen/Qwen2.5-3B-Instruct-AWQ,          quant: awq,  enabled: true }
+  - { name: qwen2.5-3b-int8,     hf_id: Qwen/Qwen2.5-3B-Instruct-GPTQ-Int8,    quant: gptq, enabled: true }
+  - { name: qwen2.5-7b,          hf_id: Qwen/Qwen2.5-7B-Instruct,              quant: none, enabled: true }
+  - { name: qwen2.5-7b-awq4,     hf_id: Qwen/Qwen2.5-7B-Instruct-AWQ,          quant: awq,  enabled: true }
+  - { name: qwen2.5-7b-int8,     hf_id: Qwen/Qwen2.5-7B-Instruct-GPTQ-Int8,    quant: gptq, enabled: true }
+
+  # ---- Llama: fp16 + 4-bit (bnb). Add a *-GPTQ-Int8 hf_id for 8-bit. ------
+  - { name: llama3.2-1b,         hf_id: meta-llama/Llama-3.2-1B-Instruct,      quant: none,     enabled: true }
+  - { name: llama3.2-1b-bnb4,    hf_id: meta-llama/Llama-3.2-1B-Instruct,      quant: bnb-4bit, enabled: true }
+  - { name: llama3.2-3b,         hf_id: meta-llama/Llama-3.2-3B-Instruct,      quant: none,     enabled: true }
+  - { name: llama3.2-3b-bnb4,    hf_id: meta-llama/Llama-3.2-3B-Instruct,      quant: bnb-4bit, enabled: true }
+  - { name: llama3.1-8b,         hf_id: meta-llama/Llama-3.1-8B-Instruct,      quant: none,     enabled: true }
+  - { name: llama3.1-8b-bnb4,    hf_id: meta-llama/Llama-3.1-8B-Instruct,      quant: bnb-4bit, enabled: true }
+
+  # ---- Gemma-2 -----------------------------------------------------------
+  - { name: gemma2-2b,           hf_id: google/gemma-2-2b-it,                  quant: none,     enabled: true }
+  - { name: gemma2-2b-bnb4,      hf_id: google/gemma-2-2b-it,                  quant: bnb-4bit, enabled: true }
+  - { name: gemma2-9b,           hf_id: google/gemma-2-9b-it,                  quant: none,     enabled: true }
+  - { name: gemma2-9b-bnb4,      hf_id: google/gemma-2-9b-it,                  quant: bnb-4bit, enabled: true }
+
+  # ---- Phi-3.5-mini ------------------------------------------------------
+  - { name: phi3.5-mini,         hf_id: microsoft/Phi-3.5-mini-instruct,       quant: none,     enabled: true }
+  - { name: phi3.5-mini-bnb4,    hf_id: microsoft/Phi-3.5-mini-instruct,       quant: bnb-4bit, enabled: true }
+
+  # ---- Ministral (8B open; 3B weights may be API-only — verify on HF) -----
+  - { name: ministral-8b,        hf_id: mistralai/Ministral-8B-Instruct-2410,  quant: none,     enabled: true }
+  - { name: ministral-8b-bnb4,   hf_id: mistralai/Ministral-8B-Instruct-2410,  quant: bnb-4bit, enabled: true }
+  - { name: ministral-3b,        hf_id: mistralai/Ministral-3B-Instruct-2410,  quant: none,     enabled: false } # verify availability
+
+  # ---- Latest 2026 families (need vllm>=0.8.5; verify hf_id on HF) --------
+  - { name: qwen3-1.7b,          hf_id: Qwen/Qwen3-1.7B,                       quant: none, enabled: true }
+  - { name: qwen3-4b,            hf_id: Qwen/Qwen3-4B,                         quant: none, enabled: true }
+  - { name: qwen3-8b,            hf_id: Qwen/Qwen3-8B,                         quant: none, enabled: true }
+  - { name: gemma3-1b,           hf_id: google/gemma-3-1b-it,                  quant: none, enabled: true }
+  - { name: gemma3-4b,           hf_id: google/gemma-3-4b-it,                  quant: none, enabled: true }
+  - { name: phi4-mini,           hf_id: microsoft/Phi-4-mini-instruct,         quant: none, enabled: true }
+
+  # ---- Newest releases verified via web search (June 2026) ----------------
+  # These postdate the training cutoff; IDs checked against huggingface.co.
+  # Need a very recent vLLM (Gemma-4 is multimodal — text-only is used here).
+  # Qwen3-4B-Instruct-2507 is the non-thinking refresh (ideal for strict JSON);
+  # SmolLM3 has a non-thinking mode. Thinking/reasoning variants are omitted
+  # because strict guided decoding leaves no room to emit a reasoning trace.
+  - { name: qwen3-4b-2507,       hf_id: Qwen/Qwen3-4B-Instruct-2507,           quant: none, enabled: true } # 256K ctx
+  - { name: gemma4-e2b,          hf_id: google/gemma-4-E2B-it,                 quant: none, enabled: true } # Apr-2026, ~2B
+  - { name: gemma4-e4b,          hf_id: google/gemma-4-E4B-it,                 quant: none, enabled: true } # Apr-2026, ~4B
+  - { name: smollm3-3b,          hf_id: HuggingFaceTB/SmolLM3-3B,              quant: none, enabled: true } # beats Llama-3.2-3B
+  # Ministral-3 needs the mistral tokenizer/format flags + vllm>=0.12; pre-wired via
+  # serve_args. Left disabled for the first GPU run — enable once vLLM is new enough.
+  - { name: ministral3-3b,       hf_id: mistralai/Ministral-3-3B-Instruct-2512, quant: none, enabled: false,
+      serve_args: ["--tokenizer-mode", "mistral", "--config-format", "mistral", "--load-format", "mistral"] }

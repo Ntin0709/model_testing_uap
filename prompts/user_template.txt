@@ -1,0 +1,8 @@
+POLICY (English, written by the user):
+{english}
+
+PROPOSED JSON TRANSLATION (to be verified):
+{json}
+
+Decide whether the JSON faithfully and completely represents the English policy.
+Return only the JSON verdict object.

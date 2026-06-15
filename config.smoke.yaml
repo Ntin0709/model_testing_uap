@@ -1,0 +1,76 @@
+# Smoke-test config: ONE small open model, tiny dataset, single run.
+# Validates the whole serve -> infer -> score -> report path on a GPU in ~5 min
+# before committing to the full sweep. Usage:
+#   python dataset.py   --config config.smoke.yaml
+#   python run.py       --config config.smoke.yaml
+#   python score.py     --config config.smoke.yaml
+#   python report.py    --config config.smoke.yaml
+# PASS if run log shows schema_ok ~= N/N and GPU frees after teardown.
+
+seed: 42
+temperature: 0.0
+max_tokens: 512
+runs_per_model: 1
+concurrency: 16
+latency_probe_n: 10
+
+vllm:
+  host: 127.0.0.1
+  port: 8000
+  gpu_memory_utilization: 0.90
+  max_model_len: 8192
+  dtype: auto
+  startup_timeout_s: 900
+  shutdown_grace_s: 30
+  gpu_free_target_mib: 2000
+  extra_serve_args: []
+  guided_mode: response_format
+  guided_backend: xgrammar
+
+paths:
+  hf_home: hf_home
+  prompt_system: prompts/system_prompt.txt
+  prompt_user_template: prompts/user_template.txt
+  verdict_schema: schema/verdict_schema.json
+  seed_pairs: data/seed_pairs.jsonl
+  policy_corpus: data/policies_smoke.jsonl
+  eval_dataset: data/eval_smoke.jsonl
+  raw_outputs_dir: outputs/raw_smoke
+  results_dir: outputs/results_smoke
+  plots_dir: outputs/plots_smoke
+
+dataset:
+  synthesize: true
+  source: corpus
+  language: hinglish
+  target_size: 60
+  faithful_fraction: 0.40
+  include_subtle: true
+  corruptions: [wrong_amount, dropped_category, added_merchant, swapped_currency, wrong_period, combined]
+
+thresholds:
+  sweep_start: 0.50
+  sweep_end: 0.99
+  sweep_step: 0.01
+  production_floor: 0.80
+  far_budget: 0.02
+
+evaluation:
+  bootstrap_iters: 200
+  bootstrap_ci: 0.95
+  unusable_score: 0.5
+  measure_intervention: true
+  intervention_probe_n: 20
+  alpha: 0.05
+  error_examples_per_model: 50
+  slices: [lang, equivalence_hard, merchants_type]
+
+ranking_weights:
+  false_accept_rate: -3.0
+  false_reject_rate: -1.0
+  f1: 1.0
+  schema_conformance: 0.5
+
+# Qwen2.5-1.5B is open (no gating) and small — ideal first check.
+models:
+  - { name: qwen2.5-1.5b, hf_id: Qwen/Qwen2.5-1.5B-Instruct, quant: none, enabled: true }
