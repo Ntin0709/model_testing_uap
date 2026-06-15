@@ -5,6 +5,9 @@
 # Qwen3 model cards recommend vllm>=0.8.5. Pin to your validated build for full
 # reproducibility once you've chosen one, e.g. `vllm==0.8.5`.
 vllm>=0.8.5
+# vLLM 0.18 can ship a prometheus-fastapi-instrumentator build that 500s on /v1/*
+# routes (AttributeError: '_IncludedRouter' has no attribute 'path'). >=7.0 fixes it.
+prometheus-fastapi-instrumentator>=7.0.0
 openai>=1.40,<2
 huggingface_hub>=0.24
 bitsandbytes>=0.43            # for quant: bnb-4bit (inflight 4-bit). 8-bit uses Int8 checkpoints + quant: gptq
