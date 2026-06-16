@@ -1,0 +1,9 @@
+model,far_budget,met,conf_floor,FAR_at_floor,precision_signed,coverage_faithful
+gemma4-e4b,2.0%,True,0.99,0.00%,-,0.0%
+qwen3-8b,2.0%,True,0.96,0.44%,91.3%,7.0%
+qwen3-4b-2507,2.0%,False,0.99,7.14%,79.7%,42.0%
+qwen3-4b,2.0%,False,0.99,16.86%,73.1%,68.8%
+phi4-mini,2.0%,True,0.5,0.00%,-,0.0%
+gemma4-e2b,2.0%,False,0.5,30.08%,64.8%,83.2%
+smollm3-3b,2.0%,False,0.5,74.06%,46.4%,96.3%
+qwen3-1.7b,2.0%,False,0.5,97.14%,40.7%,100.0%

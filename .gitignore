@@ -13,6 +13,8 @@ outputs/results_smoke/
 outputs/plots_smoke/
 hf_home/
 .vllm_cache/
+.vllm_cache_g4/
 logs/
 .venv/
+.venv_gemma4/
 !outputs/raw/.gitkeep

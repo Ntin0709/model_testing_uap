@@ -1,0 +1,91 @@
+type,id,lang,english,gold_verdict,pred_verdict,confidence,n_runs_flagged,gold_fields,pred_fields
+false_accept,u-widened_time_window-83,hinglish,"Mujhe ek baar mein online shopping ke liye ₹2,800 tak kharch karne do sirf Amazon ya Myntra pe, shaam 5 baje se raat 11 baje tak.",NOT_FAITHFUL,FAITHFUL,0.98,0,time_window,
+false_accept,u-widened_time_window-3,hinglish,"₹5,000 tak travel ke liye har hafte approve karo kahin bhi, subah 5 baje se raat 11 baje tak.",NOT_FAITHFUL,FAITHFUL,0.98,0,time_window,
+false_accept,u-widened_time_window-51,hinglish,"Fuel pe har transaction pe ₹4,000 tak allow karo kahin bhi, shaam 5 baje se raat 11 baje tak.",NOT_FAITHFUL,FAITHFUL,0.98,0,time_window,
+false_accept,u-dropped_category-85,hinglish,"Travel ya hotels pe har din ₹8,900 tak allow karo sirf Goibibo pe, subah 5 baje se raat 11 baje tak.",NOT_FAITHFUL,FAITHFUL,0.98,0,categories,
+false_accept,u-widened_time_window-64,hinglish,"Mujhe ek baar mein food delivery ke liye $1500 tak kharch karne do Swiggy aur Zomato pe, shaam 5 baje se raat 11 baje tak.",NOT_FAITHFUL,FAITHFUL,0.98,0,time_window,
+false_accept,u-narrowed_time_window-49,hinglish,"Electricity bill pe weekly 15000 rs tak allow karo, subah 8 baje se raat 9 baje tak.",NOT_FAITHFUL,FAITHFUL,0.98,0,time_window,
+false_accept,u-dropped_category-103,hinglish,"Mujhe weekly hotels ya travel ke liye $21500 tak kharch karne do bas Marriott pe, shaam 5 baje se raat 11 baje tak.",NOT_FAITHFUL,FAITHFUL,0.98,0,categories,
+false_accept,u-widened_time_window-6,hinglish,"3500 rupaye tak utilities, pharmacy ya hotels ke liye har hafte approve karo, shaam 5 baje se raat 11 baje tak.",NOT_FAITHFUL,FAITHFUL,0.98,0,time_window,
+false_accept,u-widened_time_window-84,hinglish,"Metro pe monthly $17500 tak allow karo sirf DMRC aur Namma Metro pe, subah 5 baje se raat 11 baje tak.",NOT_FAITHFUL,FAITHFUL,0.98,0,time_window,
+false_accept,u-overpermissive_merchants-118,hinglish,"Ride hailing pe ek baar mein ₹3,000 tak allow karo Rapido aur Uber pe, subah 9 baje se shaam 6 baje tak.",NOT_FAITHFUL,FAITHFUL,0.98,0,merchants,
+false_accept,u-overpermissive_merchants-44,hinglish,"Daily streaming aur food delivery ka 2100 rs tak ka limit rakho JioCinema pe, subah 10 baje se raat 8 baje tak.",NOT_FAITHFUL,FAITHFUL,0.98,0,merchants,
+false_accept,u-dropped_category-1,hinglish,"Monthly travel ya hotels ka ₹35000 tak ka limit rakho Goibibo ya MakeMyTrip pe, subah 10 baje se raat 8 baje tak.",NOT_FAITHFUL,FAITHFUL,0.98,0,categories,
+false_accept,u-narrowed_time_window-39,hinglish,"Metro pe daily ₹1,600 tak allow karo sirf Namma Metro pe, shaam 5 baje se raat 11 baje tak.",NOT_FAITHFUL,FAITHFUL,0.98,0,time_window,
+false_accept,u-narrowed_time_window-17,hinglish,"₹4500 tak metro, mobile recharge aur pharmacy ke liye har transaction pe approve karo kisi bhi merchant pe, shaam 5 baje se raat 11 baje tak.",NOT_FAITHFUL,FAITHFUL,0.98,0,time_window,
+false_accept,u-dropped_category-101,hinglish,"Utilities ya metro pe ek transaction mein 1400 rs tak allow karo, subah 9 baje se shaam 6 baje tak.",NOT_FAITHFUL,FAITHFUL,0.98,0,categories,
+false_accept,u-narrowed_time_window-31,hinglish,"16000 rupaye tak education ya entertainment ke liye weekly approve karo bas Byjus ya Unacademy pe, shaam 5 baje se raat 11 baje tak.",NOT_FAITHFUL,FAITHFUL,0.98,0,time_window,
+false_accept,u-dropped_category-55,hinglish,"Streaming ya metro pe roz $7600 tak allow karo sirf JioCinema aur Netflix pe, subah 9 baje se shaam 6 baje tak.",NOT_FAITHFUL,FAITHFUL,0.98,0,categories,
+false_accept,u-widened_time_window-98,hinglish,"Mujhe ek transaction mein entertainment ke liye 1700 rs tak kharch karne do sirf BookMyShow pe, shaam 5 baje se raat 11 baje tak.",NOT_FAITHFUL,FAITHFUL,0.98,0,time_window,
+false_accept,u-dropped_category-86,hinglish,"Daily dining ya hotels ka ₹900 tak ka limit rakho kahin bhi, subah 6 baje se raat 10 baje tak.",NOT_FAITHFUL,FAITHFUL,0.98,0,categories,
+false_accept,u-overpermissive_merchants-64,hinglish,"65500 dollar tak ride hailing ke liye har mahine approve karo Ola ya Rapido pe, subah 8 baje se raat 9 baje tak.",NOT_FAITHFUL,FAITHFUL,0.98,0,merchants,
+false_accept,u-overpermissive_merchants-4,hinglish,"Mobile recharge pe har din ₹4,700 tak allow karo Airtel ya Vi pe, subah 6 baje se raat 10 baje tak.",NOT_FAITHFUL,FAITHFUL,0.98,0,merchants,
+false_accept,u-widened_time_window-91,hinglish,"Har hafte gold, hotels aur entertainment ka 8000 rupaye tak ka limit rakho bas Kalyan ya Tanishq pe, shaam 5 baje se raat 11 baje tak.",NOT_FAITHFUL,FAITHFUL,0.98,0,time_window,
+false_accept,u-narrowed_time_window-57,hinglish,"Metro pe mahine ka 73000 dollar tak allow karo, subah 8 baje se raat 9 baje tak.",NOT_FAITHFUL,FAITHFUL,0.98,0,time_window,
+false_accept,u-dropped_category-4,hinglish,"Streaming aur entertainment pe har hafte ₹18500 tak allow karo bas Hotstar aur JioCinema pe, subah 6 baje se raat 10 baje tak.",NOT_FAITHFUL,FAITHFUL,0.98,0,categories,
+false_accept,u-widened_time_window-105,hinglish,"Mujhe daily streaming aur electricity bill ke liye ₹600 tak kharch karne do kisi bhi merchant pe, shaam 5 baje se raat 11 baje tak.",NOT_FAITHFUL,FAITHFUL,0.98,0,time_window,
+false_accept,u-wrong_period-52,hinglish,"Mujhe din ka pharmacy aur rent ke liye 1700 rs tak kharch karne do Apollo pe, subah 6 baje se raat 11 baje tak.",NOT_FAITHFUL,FAITHFUL,0.98,0,period,
+false_accept,u-widened_time_window-96,hinglish,"Utilities pe weekly ₹10500 tak allow karo, subah 10 baje se raat 8 baje tak.",NOT_FAITHFUL,FAITHFUL,0.98,0,time_window,
+false_accept,u-widened_time_window-85,hinglish,"Mujhe har din metro ke liye 7600 dollar tak kharch karne do sirf DMRC ya Namma Metro pe, shaam 5 baje se raat 11 baje tak.",NOT_FAITHFUL,FAITHFUL,0.98,0,time_window,
+false_accept,u-widened_time_window-79,hinglish,"Ek baar mein pharmacy ka 1000 rs tak ka limit rakho, subah 5 baje se raat 11 baje tak.",NOT_FAITHFUL,FAITHFUL,0.98,0,time_window,
+false_accept,u-narrowed_time_window-44,hinglish,"87500 dollar tak groceries ke liye monthly approve karo kisi bhi merchant pe, subah 8 baje se raat 9 baje tak.",NOT_FAITHFUL,FAITHFUL,0.98,0,time_window,
+false_accept,u-widened_time_window-43,hinglish,"Mujhe mahine ka utilities ke liye ₹68,000 tak kharch karne do kisi bhi store pe, shaam 5 baje se raat 11 baje tak.",NOT_FAITHFUL,FAITHFUL,0.98,0,time_window,
+false_accept,u-narrowed_time_window-113,hinglish,"Mujhe har hafte entertainment ke liye 14000 rs tak kharch karne do bas BookMyShow aur PVR pe, shaam 5 baje se raat 11 baje tak.",NOT_FAITHFUL,FAITHFUL,0.98,0,time_window,
+false_accept,u-widened_time_window-61,hinglish,"Food delivery, mobile recharge ya ride hailing pe ek transaction mein 3000 rs tak allow karo kisi bhi merchant pe, shaam 5 baje se raat 11 baje tak.",NOT_FAITHFUL,FAITHFUL,0.98,0,time_window,
+false_accept,u-overpermissive_merchants-21,hinglish,"Ride hailing pe ek baar mein ₹3,000 tak allow karo Rapido aur Uber pe, subah 9 baje se shaam 6 baje tak.",NOT_FAITHFUL,FAITHFUL,0.98,0,merchants,
+false_accept,u-combined-84,hinglish,"Mujhe daily groceries ke liye ₹4600 tak kharch karne do Blinkit aur Zepto pe, subah 9 baje se shaam 6 baje tak.",NOT_FAITHFUL,FAITHFUL,0.98,0,merchants,
+false_accept,u-dropped_category-19,hinglish,"Daily travel ya metro ka ₹3,200 tak ka limit rakho Goibibo pe, subah 9 baje se shaam 6 baje tak.",NOT_FAITHFUL,FAITHFUL,0.98,0,categories,
+false_accept,u-wrong_period-21,hinglish,"₹2100 tak education aur hotels ke liye roz approve karo sirf Unacademy pe, shaam 5 baje se raat 11 baje tak.",NOT_FAITHFUL,FAITHFUL,0.98,0,period,
+false_accept,u-widened_time_window-66,hinglish,"5 hazaar rupaye tak groceries ke liye ek transaction mein approve karo kisi bhi merchant pe, subah 5 baje se raat 11 baje tak.",NOT_FAITHFUL,FAITHFUL,0.98,0,time_window,
+false_accept,u-widened_time_window-120,hinglish,"4000 rupaye tak education ke liye har transaction pe approve karo bas Unacademy pe, subah 10 baje se raat 8 baje tak.",NOT_FAITHFUL,FAITHFUL,0.98,0,time_window,
+false_accept,u-dropped_category-58,hinglish,"Education ya rent pe daily 4000 rupaye tak allow karo Byjus ya Unacademy pe, subah 5 baje se raat 11 baje tak.",NOT_FAITHFUL,FAITHFUL,0.98,0,categories,
+false_accept,u-narrowed_time_window-53,hinglish,"23 hazaar tak education aur utilities ke liye har mahine approve karo kisi bhi store pe, shaam 5 baje se raat 11 baje tak.",NOT_FAITHFUL,FAITHFUL,0.98,0,time_window,
+false_accept,u-widened_time_window-103,hinglish,"3500 rupaye tak utilities, pharmacy ya hotels ke liye har hafte approve karo, shaam 5 baje se raat 11 baje tak.",NOT_FAITHFUL,FAITHFUL,0.98,0,time_window,
+false_accept,u-wrong_period-109,hinglish,"Fuel pe roz 4100 rs tak allow karo kahin bhi, shaam 5 baje se raat 11 baje tak.",NOT_FAITHFUL,FAITHFUL,0.98,0,period,
+false_accept,u-widened_time_window-113,hinglish,"Mujhe ek baar mein mobile recharge ke liye 500 rs tak kharch karne do sirf Jio ya Vi pe, subah 10 baje se raat 8 baje tak.",NOT_FAITHFUL,FAITHFUL,0.98,0,time_window,
+false_accept,u-widened_time_window-8,hinglish,"Mujhe daily streaming aur electricity bill ke liye ₹600 tak kharch karne do kisi bhi merchant pe, shaam 5 baje se raat 11 baje tak.",NOT_FAITHFUL,FAITHFUL,0.98,0,time_window,
+false_accept,u-dropped_merchant-82,hinglish,"Online shopping pe har mahine 40000 rs tak allow karo bas Flipkart ya Myntra pe, subah 6 baje se raat 10 baje tak.",NOT_FAITHFUL,FAITHFUL,0.98,0,merchants,
+false_accept,u-wrong_period-118,hinglish,"₹2100 tak education aur hotels ke liye roz approve karo sirf Unacademy pe, shaam 5 baje se raat 11 baje tak.",NOT_FAITHFUL,FAITHFUL,0.98,0,period,
+false_accept,u-overpermissive_merchants-116,hinglish,"Har mahine ride hailing ya travel ka $32000 tak ka limit rakho Ola ya Rapido pe, subah 6 baje se raat 10 baje tak.",NOT_FAITHFUL,FAITHFUL,0.98,0,merchants,
+false_accept,u-widened_time_window-1,hinglish,"2600 rs tak dining aur utilities ke liye har transaction pe approve karo kisi bhi store pe, shaam 5 baje se raat 11 baje tak.",NOT_FAITHFUL,FAITHFUL,0.98,0,time_window,
+false_accept,u-widened_time_window-23,hinglish,"4000 rupaye tak education ke liye har transaction pe approve karo bas Unacademy pe, subah 10 baje se raat 8 baje tak.",NOT_FAITHFUL,FAITHFUL,0.98,0,time_window,
+false_accept,u-combined-67,hinglish,"Roz food delivery ka 8200 dollar tak ka limit rakho sirf Swiggy ya Zomato pe, shaam 5 baje se raat 11 baje tak.",NOT_FAITHFUL,FAITHFUL,0.98,0,merchants,
+false_accept,u-narrowed_time_window-48,hinglish,"Mujhe har hafte gold aur fuel ke liye ₹5500 tak kharch karne do CaratLane ya Kalyan pe, shaam 5 baje se raat 11 baje tak.",NOT_FAITHFUL,FAITHFUL,0.98,0,time_window,
+false_accept,u-widened_time_window-11,hinglish,"Mujhe ek baar mein utilities ke liye ₹4900 tak kharch karne do, shaam 5 baje se raat 11 baje tak.",NOT_FAITHFUL,FAITHFUL,0.98,0,time_window,
+false_accept,u-overpermissive_merchants-19,hinglish,"Har mahine ride hailing ya travel ka $32000 tak ka limit rakho Ola ya Rapido pe, subah 6 baje se raat 10 baje tak.",NOT_FAITHFUL,FAITHFUL,0.98,0,merchants,
+false_accept,u-widened_time_window-108,hinglish,"Mujhe ek baar mein utilities ke liye ₹4900 tak kharch karne do, shaam 5 baje se raat 11 baje tak.",NOT_FAITHFUL,FAITHFUL,0.98,0,time_window,
+false_accept,u-widened_time_window-52,hinglish,"Har din hotels ya online shopping ka $1900 tak ka limit rakho Taj ya Treebo pe, subah 10 baje se raat 8 baje tak.",NOT_FAITHFUL,FAITHFUL,0.98,0,time_window,
+false_accept,u-dropped_category-116,hinglish,"Daily travel ya metro ka ₹3,200 tak ka limit rakho Goibibo pe, subah 9 baje se shaam 6 baje tak.",NOT_FAITHFUL,FAITHFUL,0.98,0,categories,
+false_accept,u-widened_time_window-55,hinglish,"5000 rs tak rent ke liye ek transaction mein approve karo kahin bhi, subah 10 baje se raat 8 baje tak.",NOT_FAITHFUL,FAITHFUL,0.98,0,time_window,
+false_accept,u-dropped_category-6,hinglish,"Mujhe weekly hotels ya travel ke liye $21500 tak kharch karne do bas Marriott pe, shaam 5 baje se raat 11 baje tak.",NOT_FAITHFUL,FAITHFUL,0.98,0,categories,
+false_accept,u-narrowed_time_window-28,hinglish,"₹60500 tak entertainment, gold ya utilities ke liye har mahine approve karo, shaam 5 baje se raat 11 baje tak.",NOT_FAITHFUL,FAITHFUL,0.98,0,time_window,
+false_accept,u-combined-13,hinglish,"Roz dining ka $8700 tak ka limit rakho kisi bhi store pe, subah 5 baje se raat 11 baje tak.",NOT_FAITHFUL,FAITHFUL,0.98,0,merchants,
+false_accept,u-widened_time_window-57,hinglish,"1400 rs tak gold ke liye ek baar mein approve karo kisi bhi merchant pe, subah 5 baje se raat 11 baje tak.",NOT_FAITHFUL,FAITHFUL,0.98,0,time_window,
+false_accept,u-combined-78,hinglish,"Har mahine rent, utilities ya fuel ka 62500 rs tak ka limit rakho, subah 6 baje se raat 10 baje tak.",NOT_FAITHFUL,FAITHFUL,0.98,0,time_window,
+false_accept,u-narrowed_time_window-36,hinglish,"Roz electricity bill ka $9300 tak ka limit rakho, subah 8 baje se raat 9 baje tak.",NOT_FAITHFUL,FAITHFUL,0.97,1,time_window,
+false_reject,f617,hinglish,"Roz mobile recharge ka ₹1,300 tak ka limit rakho, subah 6 baje se raat 11 baje tak.",FAITHFUL,NOT_FAITHFUL,0.95,3,,period;time_window
+false_reject,f668,hinglish,"Roz pharmacy ya metro ka $8600 tak ka limit rakho PharmEasy ya Tata1mg pe, subah 6 baje se raat 11 baje tak.",FAITHFUL,NOT_FAITHFUL,0.95,3,,categories;merchants;period
+false_reject,f704,hinglish,"$28500 tak gold ke liye weekly approve karo bas CaratLane ya Tanishq pe, subah 10 baje se raat 8 baje tak.",FAITHFUL,NOT_FAITHFUL,0.95,3,,currency
+false_reject,f767,hinglish,"Har din metro, mobile recharge ya fuel ka 3 hazaar rupaye tak ka limit rakho DMRC ya Namma Metro pe, subah 5 baje se raat 11 baje tak.",FAITHFUL,NOT_FAITHFUL,0.95,3,,merchants
+false_reject,f228,hinglish,"Roz rent ka 1700 rs tak ka limit rakho sirf NestAway pe, subah 5 baje se raat 11 baje tak.",FAITHFUL,NOT_FAITHFUL,0.95,3,,period
+false_reject,f69,hinglish,"$3400 tak online shopping aur fuel ke liye roz approve karo kisi bhi store pe, kabhi bhi.",FAITHFUL,NOT_FAITHFUL,0.95,3,,currency;max_amount
+false_reject,f27,hinglish,"Roz metro aur fuel ka 2800 rs tak ka limit rakho DMRC ya Namma Metro pe, subah 7 baje se dopahar 12 baje tak.",FAITHFUL,NOT_FAITHFUL,0.95,3,,merchants
+false_reject,f794,hinglish,"$18000 tak mobile recharge ke liye weekly approve karo kisi bhi merchant pe, subah 9 baje se shaam 6 baje tak.",FAITHFUL,NOT_FAITHFUL,0.95,3,,currency
+false_reject,f695,hinglish,"Roz streaming aur utilities ka $6000 tak ka limit rakho, kabhi bhi.",FAITHFUL,NOT_FAITHFUL,0.95,3,,period
+false_reject,f499,hinglish,"Roz rent ya hotels ka 2500 rupaye tak ka limit rakho kahin bhi, shaam 5 baje se raat 11 baje tak.",FAITHFUL,NOT_FAITHFUL,0.95,3,,period
+false_reject,f424,hinglish,"Din ka entertainment ya fuel ka 3300 rs tak ka limit rakho bas INOX pe, shaam 5 baje se raat 11 baje tak.",FAITHFUL,NOT_FAITHFUL,0.95,3,,period
+false_reject,f678,hinglish,"Roz hotels ka 600 rupaye tak ka limit rakho OYO pe, subah 8 baje se raat 9 baje tak.",FAITHFUL,NOT_FAITHFUL,0.95,3,,period
+false_reject,f85,hinglish,"Roz online shopping aur pharmacy ka 4800 rupaye tak ka limit rakho kisi bhi store pe, shaam 5 baje se raat 11 baje tak.",FAITHFUL,NOT_FAITHFUL,0.95,3,,period
+false_reject,f135,hinglish,"$1700 tak electricity bill ke liye ek baar mein approve karo, subah 8 baje se raat 9 baje tak.",FAITHFUL,NOT_FAITHFUL,0.95,3,,currency
+false_reject,f783,hinglish,"$6500 tak pharmacy ke liye har hafte approve karo bas Apollo pe, shaam 5 baje se raat 11 baje tak.",FAITHFUL,NOT_FAITHFUL,0.95,3,,currency
+false_reject,f0,hinglish,"Din ka electricity bill ya food delivery ka ₹7,800 tak ka limit rakho, subah 8 baje se raat 9 baje tak.",FAITHFUL,NOT_FAITHFUL,0.95,3,,period
+false_reject,f369,hinglish,"Metro ya online shopping pe har transaction pe 1600 dollar tak allow karo sirf Namma Metro pe, subah 6 baje se raat 11 baje tak.",FAITHFUL,NOT_FAITHFUL,0.95,3,,categories
+false_reject,f473,hinglish,"Streaming aur food delivery pe weekly 14000 rupaye tak allow karo Hotstar ya JioCinema pe, subah 7 baje se dopahar 12 baje tak.",FAITHFUL,NOT_FAITHFUL,0.95,3,,categories
+false_reject,f544,hinglish,"$37000 tak food delivery ke liye monthly approve karo sirf Swiggy aur Zomato pe, kisi bhi time.",FAITHFUL,NOT_FAITHFUL,0.95,3,,currency
+false_reject,f65,hinglish,"Roz utilities, streaming aur electricity bill ka 2600 dollar tak ka limit rakho kisi bhi store pe, subah 8 baje se raat 9 baje tak.",FAITHFUL,NOT_FAITHFUL,0.95,3,,period;time_window
+false_reject,f773,hinglish,"Roz pharmacy ya gold ka 9100 rupaye tak ka limit rakho bas PharmEasy pe, shaam 5 baje se raat 11 baje tak.",FAITHFUL,NOT_FAITHFUL,0.95,3,,period
+false_reject,f219,hinglish,"$2900 tak metro ke liye ek baar mein approve karo bas DMRC ya Namma Metro pe, subah 6 baje se raat 10 baje tak.",FAITHFUL,NOT_FAITHFUL,0.95,3,,currency
+false_reject,f693,hinglish,"Mujhe har transaction pe pharmacy aur metro ke liye 1600 rs tak kharch karne do bas Apollo ya PharmEasy pe, kabhi bhi.",FAITHFUL,NOT_FAITHFUL,0.95,3,,categories
+false_reject,f208,hinglish,"Roz rent ya food delivery ka 7000 rupaye tak ka limit rakho kisi bhi store pe, subah 7 baje se dopahar 12 baje tak.",FAITHFUL,NOT_FAITHFUL,0.633,3,,
+false_reject,f130,hinglish,Mujhe ek baar mein electricity bill aur hotels ke liye 800 rupaye tak kharch karne do din bhar.,FAITHFUL,NOT_FAITHFUL,0.633,3,,period
+false_reject,f312,hinglish,"Roz mobile recharge ka ₹800 tak ka limit rakho bas Airtel aur Jio pe, shaam 5 baje se raat 11 baje tak.",FAITHFUL,NOT_FAITHFUL,0.633,3,,period

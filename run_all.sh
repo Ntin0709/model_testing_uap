@@ -15,6 +15,14 @@ cd "$DIR"
 
 CONFIG="${1:-config.smoke.yaml}"
 ONLY="${2:-}"
+PYTHON_BIN="${PYTHON:-}"
+if [ -z "$PYTHON_BIN" ]; then
+  if command -v python >/dev/null 2>&1; then
+    PYTHON_BIN="python"
+  else
+    PYTHON_BIN="python3"
+  fi
+fi
 
 # keep all model downloads + caches local to this directory
 export HF_HOME="$DIR/hf_home"
@@ -35,19 +43,19 @@ run_step () { echo; echo "==== $* ===="; }
 {
   echo "=== pipeline start $TS | config=$CONFIG | models=${ONLY:-<all enabled>} ==="
   echo "=== HF_HOME=$HF_HOME ==="
-  python --version || true
-  python -c "import vllm; print('vllm', vllm.__version__)" 2>/dev/null || echo "vllm not importable yet"
+  "$PYTHON_BIN" --version || true
+  "$PYTHON_BIN" -c "import importlib.metadata as m; print('vllm', m.version('vllm'))" 2>/dev/null || echo "vllm not importable yet"
 
   run_step "1/5 build dataset"
-  python dataset.py  --config "$CONFIG"
+  "$PYTHON_BIN" dataset.py  --config "$CONFIG"
   run_step "2/5 download checkpoints"
-  python download.py --config "$CONFIG" "${ONLY_ARG[@]}"
+  "$PYTHON_BIN" download.py --config "$CONFIG" "${ONLY_ARG[@]}"
   run_step "3/5 serve + infer"
-  python run.py      --config "$CONFIG" "${ONLY_ARG[@]}"
+  "$PYTHON_BIN" run.py      --config "$CONFIG" "${ONLY_ARG[@]}"
   run_step "4/5 score"
-  python score.py    --config "$CONFIG"
+  "$PYTHON_BIN" score.py    --config "$CONFIG"
   run_step "5/5 report"
-  python report.py   --config "$CONFIG"
+  "$PYTHON_BIN" report.py   --config "$CONFIG"
 
   run_step "freeze exact versions"
   if pip freeze > requirements.lock.txt 2>/dev/null; then

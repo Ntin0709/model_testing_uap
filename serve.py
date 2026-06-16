@@ -76,14 +76,14 @@ class ModelServer:
         return cmd
 
     def _is_healthy(self) -> bool:
-        # Verify OUR model is actually served (not just that /health is 200 — a
-        # foreign service on the same port can answer /health and 404 the chat route).
+        # This vLLM/FastAPI stack can return 500 from /v1/models because of the
+        # Prometheus route-name middleware, even after the API server is ready.
+        # Since this object owns the process and exits early on port conflicts,
+        # /health is enough to gate handoff to the OpenAI client.
         try:
-            url = f"http://{self.host}:{self.port}/v1/models"
+            url = f"http://{self.host}:{self.port}/health"
             with urllib.request.urlopen(url, timeout=5) as r:
-                if r.status != 200:
-                    return False
-                return self.served_name in r.read().decode("utf-8", "ignore")
+                return r.status == 200
         except Exception:
             return False
 
@@ -93,8 +93,16 @@ class ModelServer:
         print(f"[serve] launching: {' '.join(cmd)}")
         os.makedirs("outputs", exist_ok=True)
         self.log_file = open(f"outputs/vllm_{self.served_name}.log", "w")
+        env = os.environ.copy()
+        compat_dir = os.path.join(os.path.dirname(__file__), "vllm_compat")
+        env["PYTHONPATH"] = (
+            compat_dir
+            if not env.get("PYTHONPATH")
+            else compat_dir + os.pathsep + env["PYTHONPATH"]
+        )
         self.proc = subprocess.Popen(
             cmd, stdout=self.log_file, stderr=subprocess.STDOUT,
+            env=env,
             preexec_fn=os.setsid,  # own process group, so we can kill children
         )
         deadline = time.time() + self.vcfg["startup_timeout_s"]
